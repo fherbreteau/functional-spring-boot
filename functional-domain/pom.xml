@@ -33,4 +33,45 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${enforcer.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>*:*:*:*:*</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <!-- Project dependencies -->
+                                        <!-- Test dependencies -->
+                                        <include>org.junit.jupiter</include>
+                                        <include>org.junit.platform</include>
+                                        <include>org.opentest4j:opentest4j</include>
+                                        <include>org.mockito</include>
+                                        <include>org.assertj</include>
+                                        <include>net.bytebuddy:byte-buddy</include>
+                                        <include>net.bytebuddy:byte-buddy-agent</include>
+                                        <include>org.objenesis:objenesis</include>
+                                        <include>org.apiguardian:apiguardian-api</include>
+                                    </includes>
+                                    <message>functional-domain must limit external dependencies to the maximum</message>
+                                </bannedDependencies>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
