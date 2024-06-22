@@ -45,6 +45,7 @@
         <testcontainers.version>1.19.8</testcontainers.version>
 
         <!-- Tools dependencies -->
+        <enforcer.version>3.3.0</enforcer.version>
         <compiler.version>3.13.0</compiler.version>
         <jacoco.version>0.8.12</jacoco.version>
         <checkstyle-maven.version>3.4.0</checkstyle-maven.version>
@@ -52,9 +53,10 @@
         <surefire.version>3.3.0</surefire.version>
         <pitest.version>1.16.1</pitest.version>
         <pitest-junit5.version>1.2.1</pitest-junit5.version>
+        <sonar.version>4.0.0.4121</sonar.version>
 
         <!-- Jacoco Coverage Ratio -->
-        <jacoco.coverage.ratio>90%</jacoco.coverage.ratio>
+        <jacoco.coverage.ratio>95%</jacoco.coverage.ratio>
 
         <!-- Mutation Testing configuration -->
         <pitest.fail-when-no-mutations>true</pitest.fail-when-no-mutations>
@@ -241,6 +243,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar.version}</version>
             </plugin>
         </plugins>
     </build>
