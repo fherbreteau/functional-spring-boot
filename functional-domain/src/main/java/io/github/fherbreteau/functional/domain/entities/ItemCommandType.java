@@ -9,6 +9,8 @@ public enum ItemCommandType {
     LIST,
     DOWNLOAD,
     UPLOAD,
-    DELETE
+    DELETE,
+    COPY,
+    MOVE
 
 }
