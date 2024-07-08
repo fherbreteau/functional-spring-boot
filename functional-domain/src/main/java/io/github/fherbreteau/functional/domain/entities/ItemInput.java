@@ -17,6 +17,7 @@ public final class ItemInput {
     private final AccessRight otherAccess;
     private final InputStream inputStream;
     private final String contentType;
+    private final Item destination;
 
     private ItemInput(Builder builder) {
         this.item = builder.item;
@@ -28,6 +29,7 @@ public final class ItemInput {
         this.otherAccess = builder.otherAccess;
         this.inputStream = builder.inputStream;
         this.contentType = builder.contentType;
+        this.destination = builder.destination;
     }
 
     public Item getItem() {
@@ -70,6 +72,10 @@ public final class ItemInput {
         return contentType;
     }
 
+    public Item getDestination() {
+        return destination;
+    }
+
     public static Builder builder(Item item) {
         return new Builder(item);
     }
@@ -85,6 +91,7 @@ public final class ItemInput {
                 ", groupAccess=" + groupAccess +
                 ", otherAccess=" + otherAccess +
                 ", contentType=" + contentType +
+                ", destination=" + destination +
                 '}';
     }
 
@@ -107,6 +114,7 @@ public final class ItemInput {
         private AccessRight otherAccess;
         private InputStream inputStream;
         private String contentType;
+        public Item destination;
 
         private Builder(Item item) {
             this.item = item;
@@ -149,6 +157,11 @@ public final class ItemInput {
 
         public Builder withContentType(String contentType) {
             this.contentType = contentType;
+            return this;
+        }
+
+        public Builder withDestination(Item destination) {
+            this.destination = destination;
             return this;
         }
 

@@ -41,6 +41,7 @@ class CompositeItemCommandFactoryTest {
     public static Stream<Arguments> validCommandArguments() {
         Folder folder = mock(Folder.class);
         File file = mock(File.class);
+        File newFile = mock(File.class);
         User user = mock(User.class);
         Group group = mock(Group.class);
         InputStream stream = mock(InputStream.class);
@@ -54,7 +55,11 @@ class CompositeItemCommandFactoryTest {
                 Arguments.of(ItemCommandType.DOWNLOAD, ItemInput.builder(file).build(), CheckDownloadCommand.class),
                 Arguments.of(ItemCommandType.UPLOAD, ItemInput.builder(file).withContent(stream).withContentType("content").build(), CheckUploadCommand.class),
                 Arguments.of(ItemCommandType.DELETE, ItemInput.builder(folder).build(), CheckDeleteItemCommand.class),
-                Arguments.of(ItemCommandType.DELETE, ItemInput.builder(file).build(), CheckDeleteItemCommand.class)
+                Arguments.of(ItemCommandType.DELETE, ItemInput.builder(file).build(), CheckDeleteItemCommand.class),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(file).withDestination(newFile).build(), CheckCopyItemCommand.class),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(file).withDestination(folder).build(), CheckCopyItemCommand.class),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(file).withDestination(newFile).build(), CheckMoveItemCommand.class),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(file).withDestination(folder).build(), CheckMoveItemCommand.class)
         );
     }
 
@@ -74,6 +79,12 @@ class CompositeItemCommandFactoryTest {
                 Arguments.of(ItemCommandType.UPLOAD, ItemInput.builder(folder).withContent(stream).withContentType("content").build()),
                 Arguments.of(ItemCommandType.UPLOAD, ItemInput.builder(file).withContentType("content").build()),
                 Arguments.of(ItemCommandType.UPLOAD, ItemInput.builder(file).withContent(stream).build()),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(file).withDestination(file).build()),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(folder).withDestination(folder).build()),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(folder).build()),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(file).withDestination(file).build()),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(folder).withDestination(folder).build()),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(folder).build()),
 
                 Arguments.of(ItemCommandType.MKDIR, ItemInput.builder(null).withName("item").build()),
                 Arguments.of(ItemCommandType.LIST, ItemInput.builder(null).build()),
@@ -82,7 +93,11 @@ class CompositeItemCommandFactoryTest {
                 Arguments.of(ItemCommandType.CHMOD, ItemInput.builder(null).build()),
                 Arguments.of(ItemCommandType.DOWNLOAD, ItemInput.builder(null).build()),
                 Arguments.of(ItemCommandType.UPLOAD, ItemInput.builder(null).withContent(stream).withContentType("content").build()),
-                Arguments.of(ItemCommandType.DELETE, ItemInput.builder(null).build())
+                Arguments.of(ItemCommandType.DELETE, ItemInput.builder(null).build()),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(null).build()),
+                Arguments.of(ItemCommandType.COPY, ItemInput.builder(null).build()),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(null).build()),
+                Arguments.of(ItemCommandType.MOVE, ItemInput.builder(null).build())
         );
     }
 
@@ -97,6 +112,8 @@ class CompositeItemCommandFactoryTest {
                 new DownloadCommandFactory(),
                 new ListChildrenCommandFactory(),
                 new UploadCommandFactory(),
+                new CopyItemCommandFactory(),
+                new MoveItemCommandFactory(),
                 new UnsupportedItemCommandFactory());
         factory = new CompositeItemCommandFactory(repository, contentRepository, accessChecker, accessUpdater, factories);
     }
