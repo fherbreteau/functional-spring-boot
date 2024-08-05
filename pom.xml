@@ -32,7 +32,7 @@
         <mockito.version>5.8.0</mockito.version>
 
         <!-- Database dependencies -->
-        <liquibase.version>4.28.0</liquibase.version>
+        <liquibase.version>4.29.1</liquibase.version>
         <postgresql.version>42.7.3</postgresql.version>
 
         <!-- Password validity Checker -->
