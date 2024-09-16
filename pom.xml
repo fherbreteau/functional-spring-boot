@@ -48,7 +48,7 @@
         <enforcer.version>3.5.0</enforcer.version>
         <compiler.version>3.13.0</compiler.version>
         <jacoco.version>0.8.12</jacoco.version>
-        <checkstyle-maven.version>3.4.0</checkstyle-maven.version>
+        <checkstyle-maven.version>3.5.0</checkstyle-maven.version>
         <checkstyle.version>10.17.0</checkstyle.version>
         <surefire.version>3.5.0</surefire.version>
         <pitest.version>1.16.1</pitest.version>
