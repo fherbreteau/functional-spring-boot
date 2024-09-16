@@ -36,7 +36,7 @@
         <postgresql.version>42.7.3</postgresql.version>
 
         <!-- Password validity Checker -->
-        <passay.version>1.6.4</passay.version>
+        <passay.version>1.6.5</passay.version>
 
         <java-diff-utils.version>4.12</java-diff-utils.version>
 
