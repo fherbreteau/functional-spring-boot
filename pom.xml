@@ -51,7 +51,7 @@
         <checkstyle-maven.version>3.4.0</checkstyle-maven.version>
         <checkstyle.version>10.17.0</checkstyle.version>
         <surefire.version>3.5.0</surefire.version>
-        <pitest.version>1.16.1</pitest.version>
+        <pitest.version>1.17.0</pitest.version>
         <pitest-junit5.version>1.2.1</pitest-junit5.version>
         <sonar.version>4.0.0.4121</sonar.version>
 
