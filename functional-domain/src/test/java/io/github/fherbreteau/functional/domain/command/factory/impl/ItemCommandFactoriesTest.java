@@ -19,8 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.BOOLEAN;
 import static org.assertj.core.api.InstanceOfAssertFactories.type;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class ItemCommandFactoriesTest {
@@ -155,6 +157,77 @@ class ItemCommandFactoriesTest {
     }
 
     @Test
+    void shouldCopyTheGivenFileToExpectedLocation() {
+        ItemCommandFactory<Item> factory = new CopyItemCommandFactory();
+        File source = File.builder()
+                .withName("source")
+                .withParent(Folder.getRoot())
+                .withOwner(User.root())
+                .withGroup(Group.root())
+                .withContentType("content-type")
+                .build();
+        File destination = File.builder()
+                .withName("destination")
+                .withParent(Folder.getRoot())
+                .withOwner(User.root())
+                .withGroup(Group.root())
+                .withContentType("content-type")
+                .build();
+        InputStream stream = mock(InputStream.class);
+        ItemInput itemInput = ItemInput.builder(source).withDestination(destination).build();
+
+        given(accessChecker.canWrite(Folder.getRoot(), actor)).willReturn(true);
+        given(repository.exists(Folder.getRoot(), "destination")).willReturn(false);
+        given(repository.create(any())).willAnswer(invocation -> invocation.getArgument(0));
+        given(accessUpdater.createItem(any())).willAnswer(invocation -> invocation.getArgument(0));
+        given(contentRepository.initContent(any())).willAnswer(invocation -> Output.success(invocation.getArgument(0)));
+        given(contentRepository.readContent(any())).willReturn(success(stream));
+        given(contentRepository.writeContent(any(), eq(stream)))
+                .willAnswer(invocation -> success(invocation.getArgument(0)));
+
+        Command<Command<Output<Item>>> checker = factory.createCommand(repository, contentRepository, accessChecker,
+                accessUpdater, ItemCommandType.COPY, itemInput);
+        Command<Output<Item>> executor = checker.execute(actor);
+        Output<Item> output = executor.execute(actor);
+
+        assertThat(output).extracting(Output::isSuccess, BOOLEAN)
+                .isTrue();
+    }
+
+    @Test
+    void shouldMoveTheGivenFileToExpectedLocation() {
+        ItemCommandFactory<Item> factory = new MoveItemCommandFactory();
+        File source = File.builder()
+                .withName("source")
+                .withParent(Folder.getRoot())
+                .withOwner(User.root())
+                .withGroup(Group.root())
+                .withContentType("content-type")
+                .build();
+        File destination = File.builder()
+                .withName("destination")
+                .withParent(Folder.getRoot())
+                .withOwner(User.root())
+                .withGroup(Group.root())
+                .withContentType("content-type")
+                .build();
+        ItemInput itemInput = ItemInput.builder(source).withDestination(destination).build();
+
+        given(accessChecker.canWrite(Folder.getRoot(), actor)).willReturn(true);
+        given(repository.exists(Folder.getRoot(), "destination")).willReturn(false);
+        given(repository.create(any())).willAnswer(invocation -> invocation.getArgument(0));
+        given(accessUpdater.createItem(any())).willAnswer(invocation -> invocation.getArgument(0));
+
+        Command<Command<Output<Item>>> checker = factory.createCommand(repository, contentRepository, accessChecker,
+                accessUpdater, ItemCommandType.COPY, itemInput);
+        Command<Output<Item>> executor = checker.execute(actor);
+        Output<Item> output = executor.execute(actor);
+
+        assertThat(output).extracting(Output::isSuccess, BOOLEAN)
+                .isTrue();
+    }
+
+    @Test
     void testInputHasRequiredInfoInToString() {
         File file = File.builder()
                 .withName("file")
@@ -163,7 +236,8 @@ class ItemCommandFactoriesTest {
                 .withGroup(Group.root())
                 .build();
         ItemInput itemInput = ItemInput.builder(file).build();
-        assertThat(itemInput).hasToString("Input{item='file root(00000000-0000-0000-0000-000000000000):root(00000000-0000-0000-0000-000000000000) --------- ', name='null', user=null, group=null, ownerAccess=null, groupAccess=null, otherAccess=null, contentType=null}");
+        assertThat(itemInput).hasToString("Input{item='file root(00000000-0000-0000-0000-000000000000):root(00000000-0000-0000-0000-000000000000) --------- '," +
+                " name='null', user=null, group=null, ownerAccess=null, groupAccess=null, otherAccess=null, contentType=null, destination=null}");
     }
 
     @Test
