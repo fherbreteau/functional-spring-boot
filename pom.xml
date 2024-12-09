@@ -53,7 +53,7 @@
         <surefire.version>3.5.0</surefire.version>
         <pitest.version>1.17.2</pitest.version>
         <pitest-junit5.version>1.2.1</pitest-junit5.version>
-        <sonar.version>4.0.0.4121</sonar.version>
+        <sonar.version>5.0.0.4389</sonar.version>
 
         <!-- Jacoco Coverage Ratio -->
         <jacoco.coverage.ratio>95%</jacoco.coverage.ratio>
