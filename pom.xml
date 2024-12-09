@@ -50,7 +50,7 @@
         <jacoco.version>0.8.12</jacoco.version>
         <checkstyle-maven.version>3.6.0</checkstyle-maven.version>
         <checkstyle.version>10.20.2</checkstyle.version>
-        <surefire.version>3.5.0</surefire.version>
+        <surefire.version>3.5.2</surefire.version>
         <pitest.version>1.17.2</pitest.version>
         <pitest-junit5.version>1.2.1</pitest-junit5.version>
         <sonar.version>4.0.0.4121</sonar.version>
