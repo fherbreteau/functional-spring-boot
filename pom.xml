@@ -38,7 +38,7 @@
         <!-- Password validity Checker -->
         <passay.version>1.6.6</passay.version>
 
-        <java-diff-utils.version>4.12</java-diff-utils.version>
+        <java-diff-utils.version>4.15</java-diff-utils.version>
 
         <!-- Tests dependencies -->
         <jimfs.version>1.3.0</jimfs.version>
