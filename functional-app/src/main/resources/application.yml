@@ -12,9 +12,9 @@ spring:
   liquibase:
     change-log: classpath:/database/master.xml
   datasource:
-    url: jdbc:postgresql://localhost:5432/functional_db
-    username: functional_user
-    password: Functi0nalS3cret
+    url: jdbc:postgresql://localhost:5432/functional
+    username: postgres
+    password: password
 
 server:
   compression:
@@ -29,6 +29,17 @@ server:
       protocol-header: "x-forwarded-proto"
 
 management:
+  health:
+    livenessstate.enabled: true
+    readinessstate.enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,liquibase,metrics
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
   server.port: 8082
 
 content.repository.path: /tmp

@@ -47,6 +47,7 @@ import org.springframework.web.context.WebApplicationContext;
         classes = FunctionalApplication.class)
 @ActiveProfiles("test")
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
+@WithMockUser
 class GroupControllerTest {
 
     @Autowired
@@ -74,7 +75,6 @@ class GroupControllerTest {
         given(userService.findUserByName("user")).willReturn(Output.success(actor));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnCurrentUserWithGivenName() throws Exception {
         given(userService.processCommand(eq(UserCommandType.GROUPS), eq(actor),
@@ -89,7 +89,6 @@ class GroupControllerTest {
                 .andExpect(jsonPath("$[0].name").value("user"));
     }
 
-    @WithMockUser
     @Test
     void shouldCreateGroupWithGivenParameters() throws Exception {
         UUID groupId = UUID.randomUUID();
@@ -110,7 +109,6 @@ class GroupControllerTest {
                 .andExpect(jsonPath("$.gid").value(groupId.toString()));
     }
 
-    @WithMockUser
     @Test
     void shouldModifyGroupWithGivenParameters() throws Exception {
         UUID groupId = UUID.randomUUID();
@@ -131,7 +129,6 @@ class GroupControllerTest {
                 .andExpect(jsonPath("$.gid").value(groupId.toString()));
     }
 
-    @WithMockUser
     @Test
     void shouldDeleteGroup() throws Exception {
         UUID groupId = UUID.randomUUID();
@@ -144,7 +141,6 @@ class GroupControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenConnectedUserDoesNotExists() throws Exception {
         given(userService.findUserByName("user")).willReturn(Output.failure("user not found"));
@@ -181,7 +177,6 @@ class GroupControllerTest {
                 .andExpect(jsonPath("$.message").value("user not found"));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenCommandFails() throws Exception {
         given(userService.processCommand(any(), eq(actor), any()))
