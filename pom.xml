@@ -59,7 +59,7 @@
         <compiler.version>3.13.0</compiler.version>
         <jacoco.version>0.8.12</jacoco.version>
         <checkstyle-maven.version>3.6.0</checkstyle-maven.version>
-        <checkstyle.version>10.21.1</checkstyle.version>
+        <checkstyle.version>10.21.4</checkstyle.version>
         <surefire.version>3.5.2</surefire.version>
         <pitest.version>1.18.2</pitest.version>
         <pitest-junit5.version>1.2.1</pitest-junit5.version>
