@@ -129,7 +129,7 @@ class CompositeItemCommandFactoryTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         List<ItemCommandFactory<?>> factories = List.of(
                 new ChangeOwnerCommandFactory(),
                 new ChangeGroupCommandFactory(),

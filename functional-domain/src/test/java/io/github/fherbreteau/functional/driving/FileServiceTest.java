@@ -47,7 +47,7 @@ class FileServiceTest {
     private Item item;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         fileService = new FileServiceImpl(commandFactory, pathFactory);
     }
 

@@ -40,7 +40,7 @@ class ChangeGroupCommandTest {
     private ArgumentCaptor<Group> groupCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         User user = User.builder("user").build();
         oldGroup = user.getGroup();
         Item item = File.builder().withName("name").withOwner(user).build();

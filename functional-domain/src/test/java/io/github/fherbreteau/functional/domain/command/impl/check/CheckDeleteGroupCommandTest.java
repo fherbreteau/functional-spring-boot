@@ -33,7 +33,7 @@ class CheckDeleteGroupCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         command = new CheckDeleteGroupCommand(userRepository, groupRepository, userChecker, userUpdater,
                 "group", false);
     }

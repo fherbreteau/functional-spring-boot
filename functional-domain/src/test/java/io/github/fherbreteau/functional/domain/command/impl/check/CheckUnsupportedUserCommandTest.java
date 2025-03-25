@@ -17,7 +17,7 @@ class CheckUnsupportedUserCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         actor = User.builder("actor").build();
         command = new CheckUnsupportedUserCommand(null, null, null, null, null, null);
     }

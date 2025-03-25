@@ -34,7 +34,7 @@ class UserServiceTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         userService = new UserServiceImpl(userManager, commandFactory);
     }
 

@@ -35,7 +35,7 @@ class CheckChangeGroupCommandTest {
     private File item;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         item = File.builder().withName("name").withOwner(User.builder("user").build()).build();
         Group group = Group.builder("group").build();
         command = new CheckChangeGroupCommand(repository, accessChecker, accessUpdater, item, group);

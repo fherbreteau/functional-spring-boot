@@ -32,7 +32,7 @@ class DownloadCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         file = File.builder()
                 .withName("file")
                 .withOwner(User.root())

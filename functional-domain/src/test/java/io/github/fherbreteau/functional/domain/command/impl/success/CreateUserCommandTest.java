@@ -44,7 +44,7 @@ class CreateUserCommandTest {
     private ArgumentCaptor<User> userCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         UserInput input = UserInput.builder("user").build();
         command = new CreateUserCommand(userRepository, groupRepository, userUpdater, passwordProtector, input);
     }

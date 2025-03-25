@@ -35,7 +35,7 @@ class CheckChangeOwnerCommandTest {
     private File item;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         Group group = Group.builder("group").build();
         item = File.builder()
                 .withName("name")

@@ -33,7 +33,7 @@ class PasswordProtectorTest {
     private PasswordProtector passwordProtector;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         passwordProtector = new PasswordProtectorImpl(passwordEncoder, passwordValidator);
     }
 

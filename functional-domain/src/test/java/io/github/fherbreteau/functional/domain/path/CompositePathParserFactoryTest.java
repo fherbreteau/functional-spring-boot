@@ -101,7 +101,7 @@ class CompositePathParserFactoryTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         List<PathParserFactory> pathFactories = List.of(
                 new ParentSegmentPathParserFactory(),
                 new CurrentSegmentPathParserFactory(),

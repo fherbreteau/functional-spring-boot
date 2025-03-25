@@ -123,7 +123,7 @@ public class AccessParserServiceTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         List<AccessParserFactory> accessRightParserFactories = List.of(
                 new AddAccessParserFactory(),
                 new AttributionAccessParserAccessFactory(),

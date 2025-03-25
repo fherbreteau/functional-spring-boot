@@ -41,7 +41,7 @@ class UserCheckerTest {
     private ArgumentCaptor<CheckPermissionRequest> requestCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         userId = UUID.randomUUID();
         actor = User.builder("user")
                 .withUserId(userId)

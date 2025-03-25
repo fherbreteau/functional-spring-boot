@@ -17,7 +17,7 @@ class CheckUnsupportedItemCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         actor = User.builder("actor").build();
         command = new CheckUnsupportedItemCommand(null, null, null, null);
     }

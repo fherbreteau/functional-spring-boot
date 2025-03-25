@@ -32,7 +32,7 @@ class CheckListChildrenCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         parent = Folder.builder()
                 .withName("parent")
                 .withOwner(User.root())

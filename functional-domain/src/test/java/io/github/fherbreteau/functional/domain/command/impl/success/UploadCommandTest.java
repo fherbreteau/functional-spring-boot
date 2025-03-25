@@ -40,7 +40,7 @@ class UploadCommandTest {
     private ArgumentCaptor<File> itemCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         File file = File.builder()
                 .withName("file")
                 .withOwner(User.root())

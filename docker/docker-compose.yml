@@ -1,16 +1,18 @@
-version: '3.9'
+version: '3'
 
 services:
-  postgres:
-    image: postgres:14-alpine
+  database:
+    image: postgres:17
+    restart: "always"
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
-      - ~/apps/postgres:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+      - postgres:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=Functi0nalS3cret
-      - POSTGRES_USER=functional_user
-      - POSTGRES_DB=functional_db
+      - POSTGRES_MULTIPLE_DATABASES=functional:postgres,spicedb:postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
 
   spicedb:
     image: "authzed/spicedb"
@@ -22,3 +24,37 @@ services:
       - "50051:50051"
     environment:
       - "SPICEDB_GRPC_PRESHARED_KEY=supersecretpassword"
+      - "SPICEDB_DATASTORE_ENGINE=postgres"
+      - "SPICEDB_DATASTORE_CONN_URI=postgres://postgres:password@database:5432/spicedb?sslmode=disable"
+    depends_on:
+      - "migrate"
+
+  migrate:
+    image: "authzed/spicedb"
+    command: "migrate head"
+    restart: "on-failure"
+    environment:
+      - "SPICEDB_DATASTORE_ENGINE=postgres"
+      - "SPICEDB_DATASTORE_CONN_URI=postgres://postgres:password@database:5432/spicedb?sslmode=disable"
+    depends_on:
+      - "database"
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - "database"
+
+volumes:
+  postgres:
+  pgadmin:

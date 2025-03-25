@@ -118,7 +118,7 @@ class CompositeUserCommandFactoryTest {
     }
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         List<UserCommandFactory<?>> factories = List.of(
                 new CreateGroupCommandFactory(),
                 new DeleteGroupCommandFactory(),

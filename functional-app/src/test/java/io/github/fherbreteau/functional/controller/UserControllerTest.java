@@ -48,6 +48,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = FunctionalApplication.class)
 @ActiveProfiles("test")
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
+@WithMockUser
 class UserControllerTest {
 
     @Autowired
@@ -66,7 +67,7 @@ class UserControllerTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
@@ -75,7 +76,6 @@ class UserControllerTest {
         given(userService.findUserByName("user")).willReturn(Output.success(actor));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnCurrentUserWithGivenName() throws Exception {
         given(userService.processCommand(eq(UserCommandType.ID), eq(actor),
@@ -92,7 +92,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.groups[0].name").value("user"));
     }
 
-    @WithMockUser
     @Test
     void shouldCreateUserWithGivenParameters() throws Exception {
         UUID groupId = UUID.randomUUID();
@@ -126,7 +125,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.groups[0].name").value("user1"));
     }
 
-    @WithMockUser
     @Test
     void shouldModifyUserWithGivenParameters() throws Exception {
         UUID groupId = UUID.randomUUID();
@@ -150,7 +148,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.groups[0].name").value("group"));
     }
 
-    @WithMockUser
     @Test
     void shouldModifyUserPassword() throws Exception {
         given(userService.processCommand(eq(UserCommandType.PASSWD), eq(actor),
@@ -169,7 +166,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.groups[0].name").value("user1"));
     }
 
-    @WithMockUser
     @Test
     void shouldDeleteUser() throws Exception {
         given(userService.processCommand(eq(UserCommandType.USERDEL), eq(actor),
@@ -180,7 +176,6 @@ class UserControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenConnectedUserDoesNotExists() throws Exception {
         given(userService.findUserByName("user")).willReturn(Output.failure("user not found"));
@@ -223,7 +218,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.message").value("user not found"));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenCommandFails() throws Exception {
         given(userService.processCommand(any(), eq(actor), any()))
