@@ -30,7 +30,7 @@ class UserManagerTest {
     private UserManager userManager;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         userManager = new UserManager(userRepository, groupRepository);
     }
 

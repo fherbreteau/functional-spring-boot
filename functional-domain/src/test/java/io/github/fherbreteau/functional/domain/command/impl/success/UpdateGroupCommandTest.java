@@ -43,7 +43,7 @@ class UpdateGroupCommandTest {
     private ArgumentCaptor<Group> newGroupCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         groupId = UUID.randomUUID();
         command = new UpdateGroupCommand(userRepository, groupRepository, userUpdater, "group", null, null);
     }

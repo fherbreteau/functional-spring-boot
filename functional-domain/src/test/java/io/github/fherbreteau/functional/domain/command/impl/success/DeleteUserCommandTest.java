@@ -33,7 +33,7 @@ class DeleteUserCommandTest {
     private UUID userId;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         userId = UUID.randomUUID();
         command = new DeleteUserCommand(userRepository, groupRepository, userUpdater, "user");
     }

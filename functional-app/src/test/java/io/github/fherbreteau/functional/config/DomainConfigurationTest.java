@@ -27,7 +27,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @SpringBootTest(classes = { CommandFactoryConfiguration.class, ParserFactoryConfiguration.class,
     PathFactoryConfiguration.class, DomainConfiguration.class })
 @ActiveProfiles("test")
-public class DomainConfigurationTest {
+class DomainConfigurationTest {
 
     @MockitoBean
     private UserRepository userRepository;

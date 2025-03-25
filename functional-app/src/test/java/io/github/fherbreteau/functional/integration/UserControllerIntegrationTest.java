@@ -46,7 +46,7 @@ class UserControllerIntegrationTest {
     private MockMvc mvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())

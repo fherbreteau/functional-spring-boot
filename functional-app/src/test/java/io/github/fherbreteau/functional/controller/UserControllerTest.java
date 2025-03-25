@@ -67,7 +67,7 @@ class UserControllerTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())

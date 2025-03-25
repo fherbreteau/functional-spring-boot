@@ -38,7 +38,7 @@ class CheckCopyItemCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         source = File.builder()
                 .withName("source")
                 .withOwner(User.root())

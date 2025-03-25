@@ -43,7 +43,7 @@ class CheckUpdateUserCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         UserInput input = UserInput.builder("user").withNewName("user1").build();
         command = new CheckUpdateUserCommand(userRepository, groupRepository, userChecker, userUpdater,
                 passwordProtector, type, input);

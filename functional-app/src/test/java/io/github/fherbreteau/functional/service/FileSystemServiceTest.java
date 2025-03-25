@@ -32,7 +32,7 @@ class FileSystemServiceTest {
     private UserService userService;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         service = new FileSystemService(fileService, entityMapper, accessParserService, userService);
     }
 

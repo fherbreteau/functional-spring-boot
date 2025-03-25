@@ -40,7 +40,7 @@ class CheckCreateUserCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         UserInput input = UserInput.builder("user").build();
         command = new CheckCreateUserCommand(userRepository, groupRepository, userChecker, userUpdater, passwordProtector,
                 input);

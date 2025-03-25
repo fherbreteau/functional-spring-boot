@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(classes = { InfrastructureConfiguration.class })
 @ActiveProfiles("test")
-public class InfrastructureConfigurationTest {
+class InfrastructureConfigurationTest {
 
     @Autowired(required = false)
     private ContentRepository contentRepository;

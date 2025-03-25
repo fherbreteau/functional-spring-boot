@@ -36,7 +36,7 @@ class CreateGroupCommandTest {
     private ArgumentCaptor<Group> groupCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         command = new CreateGroupCommand(userRepository, groupRepository, userUpdater, "group", null);
     }
 

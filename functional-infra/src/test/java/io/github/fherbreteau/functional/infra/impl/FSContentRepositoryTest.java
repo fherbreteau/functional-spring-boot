@@ -41,7 +41,7 @@ class FSContentRepositoryTest {
     private ContentRepository repository;
 
     @BeforeEach
-    public void setup() throws Exception {
+    void setup() throws Exception {
         Path basePath = fs.getPath(ROOT_PATH);
         Files.createDirectory(basePath);
         repository = new FSContentRepository(ROOT_PATH, fs);
@@ -49,7 +49,7 @@ class FSContentRepositoryTest {
     }
 
     @AfterEach
-    public void tearDown() throws IOException {
+    void tearDown() throws IOException {
         Path basePath = fs.getPath(ROOT_PATH);
         if (Files.notExists(basePath)) {
             return;

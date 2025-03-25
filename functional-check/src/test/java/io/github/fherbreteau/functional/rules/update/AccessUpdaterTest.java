@@ -50,7 +50,7 @@ class AccessUpdaterTest {
     private UUID groupId;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         userId = UUID.randomUUID();
         User owner = User.builder("user")
                 .withUserId(userId)

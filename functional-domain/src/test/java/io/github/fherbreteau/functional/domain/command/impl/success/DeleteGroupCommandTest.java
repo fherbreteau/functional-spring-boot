@@ -34,7 +34,7 @@ class DeleteGroupCommandTest {
     private UUID groupId;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         groupId = UUID.randomUUID();
         command = new DeleteGroupCommand(userRepository, groupRepository, userUpdater, "group", false);
     }
