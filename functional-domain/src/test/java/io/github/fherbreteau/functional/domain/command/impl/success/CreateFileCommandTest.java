@@ -40,7 +40,7 @@ class CreateFileCommandTest {
     private ArgumentCaptor<File> itemCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         parent = Folder.builder()
                 .withName("parent")
                 .withOwner(User.root())

@@ -49,7 +49,7 @@ class AccessCheckerTest {
     private ArgumentCaptor<CheckPermissionRequest> requestCaptor;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         fileHandle = UUID.randomUUID();
         item = File.builder()
                 .withName("file")

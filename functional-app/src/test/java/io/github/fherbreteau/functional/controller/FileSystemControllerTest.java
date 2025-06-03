@@ -57,6 +57,7 @@ import org.springframework.web.context.WebApplicationContext;
         classes = FunctionalApplication.class)
 @ActiveProfiles("test")
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
+@WithMockUser
 class FileSystemControllerTest {
 
     @Autowired
@@ -81,7 +82,7 @@ class FileSystemControllerTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
@@ -114,7 +115,6 @@ class FileSystemControllerTest {
         given(userService.findUserByName("user")).willReturn(Output.success(actor));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAListOfItemWhenFileServiceCanListElement() throws Exception {
         given(fileService.getPath("/", actor)).willReturn(Path.ROOT);
@@ -149,7 +149,6 @@ class FileSystemControllerTest {
 
     }
 
-    @WithMockUser
     @Test
     void shouldCreateFileWhenFileServiceCanCreateFile() throws Exception {
         given(fileService.getPath("/", actor)).willReturn(Path.ROOT);
@@ -167,7 +166,6 @@ class FileSystemControllerTest {
 
     }
 
-    @WithMockUser
     @Test
     void shouldCreateFolderWhenFileServiceCanCreateFolder() throws Exception {
         given(fileService.getPath("/", actor)).willReturn(Path.ROOT);
@@ -185,7 +183,6 @@ class FileSystemControllerTest {
 
     }
 
-    @WithMockUser
     @Test
     void shouldChangeOwnerWhenFileServiceCanChangeOwner() throws Exception {
         User user2 = User.builder("user2").build();
@@ -204,7 +201,6 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.owner").value("user2"));
     }
 
-    @WithMockUser
     @Test
     void shouldChangeGroupWhenFileServiceCanChangeGroup() throws Exception {
         Group group2 = Group.builder("group2").build();
@@ -223,7 +219,6 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.group").value("group2"));
     }
 
-    @WithMockUser
     @Test
     void shouldChangeRightWhenFileServiceCanChangeMode() throws Exception {
         given(fileService.getPath("/folder", actor)).willReturn(Path.success(folder));
@@ -241,7 +236,6 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.access").value("dr--r-----"));
     }
 
-    @WithMockUser
     @Test
     void shouldDownloadContentWhenFileServiceCanReadFile() throws Exception {
         given(fileService.getPath("/file", actor)).willReturn(Path.success(file));
@@ -256,7 +250,6 @@ class FileSystemControllerTest {
                 .andExpect(content().bytes("content".getBytes()));
     }
 
-    @WithMockUser
     @Test
     void shouldUploadContentWhenFileServiceCanWriteFile() throws Exception {
         given(fileService.getPath("/file", actor)).willReturn(Path.success(file));
@@ -273,7 +266,6 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.content-type").value(MediaType.APPLICATION_OCTET_STREAM_VALUE));
     }
 
-    @WithMockUser
     @Test
     void shouldDeleteItemWhenFileServiceCanDeleteFile() throws Exception {
         given(fileService.getPath("/file", actor)).willReturn(Path.success(file));
@@ -286,7 +278,6 @@ class FileSystemControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenUserDoesNotExists() throws Exception {
         given(userService.findUserByName("user")).willReturn(Output.failure("user not found"));
@@ -362,7 +353,6 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.message").value("user not found"));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenPathDoesNotExists() throws Exception {
         given(fileService.getPath("/path", actor)).willReturn(Path.error(Failure.failure("path not found")));
@@ -438,7 +428,6 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.message").value("path not found"));
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenParamDoesNotExists() throws Exception {
         Folder path = Folder.builder()
@@ -468,7 +457,6 @@ class FileSystemControllerTest {
 
     }
 
-    @WithMockUser
     @Test
     void shouldReturnAnErrorWhenCommandFails() throws Exception {
         Folder path = Folder.builder()

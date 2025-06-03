@@ -36,7 +36,7 @@ class CreateFolderCommandTest {
     private ArgumentCaptor<Folder> itemCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         parent = Folder.builder()
                 .withName("parent")
                 .withOwner(User.root())

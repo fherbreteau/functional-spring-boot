@@ -36,7 +36,7 @@ class CheckUpdateGroupCommandTest {
     private User actor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         command = new CheckUpdateGroupCommand(userRepository, groupRepository, userChecker, userUpdater, "group",
                 null, "group1");
     }

@@ -36,7 +36,7 @@ class CheckChangeModeCommandTest {
     private File item;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         item = File.builder()
                 .withName("name")
                 .withOwner(User.builder("user").build())

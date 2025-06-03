@@ -58,7 +58,7 @@ public class CopyItemCommandTest {
     class CopySourceFileToDestinationFile {
 
         @BeforeEach
-        public void setup() {
+        void setup() {
 
             source = File.builder()
                     .withName("source")
@@ -151,7 +151,7 @@ public class CopyItemCommandTest {
     class CopySourceFileToDestinationFolder {
 
         @BeforeEach
-        public void setup() {
+        void setup() {
 
             source = File.builder()
                     .withName("source")
@@ -247,7 +247,7 @@ public class CopyItemCommandTest {
     class CopySourceFolderToDestinationFolder {
 
         @BeforeEach
-        public void setup() {
+        void setup() {
 
             source = Folder.builder()
                     .withName("source")

@@ -59,7 +59,7 @@ class UserUpdaterTest {
     private Group group;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         groupId = UUID.randomUUID();
         group = Group.builder("group")
                 .withGroupId(groupId)

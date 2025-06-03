@@ -46,7 +46,7 @@ public class MoveItemCommandTest {
     class MoveSourceFileToDestinationFile {
 
         @BeforeEach
-        public void setup() {
+        void setup() {
 
             source = File.builder()
                     .withName("source")
@@ -95,7 +95,7 @@ public class MoveItemCommandTest {
     class MoveSourceFileToDestinationFolder {
 
         @BeforeEach
-        public void setup() {
+        void setup() {
 
             source = File.builder()
                     .withName("source")
@@ -144,7 +144,7 @@ public class MoveItemCommandTest {
     class MoveSourceFolderToDestinationFolder {
 
         @BeforeEach
-        public void setup() {
+        void setup() {
 
             source = Folder.builder()
                     .withName("source")

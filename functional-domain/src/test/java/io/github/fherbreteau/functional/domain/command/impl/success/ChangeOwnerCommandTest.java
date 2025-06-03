@@ -41,7 +41,7 @@ class ChangeOwnerCommandTest {
     private ArgumentCaptor<User> ownerCaptor;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         oldUser = User.builder("user").build();
         group = Group.builder("group").build();
         Item item = File.builder()

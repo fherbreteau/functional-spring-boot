@@ -21,7 +21,7 @@ class EntityMapperTest {
     private EntityMapper mapper;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mapper = new EntityMapper();
     }
 
