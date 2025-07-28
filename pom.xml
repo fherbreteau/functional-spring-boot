@@ -30,7 +30,7 @@
 
         <!-- Test Dependencies versions -->
         <mockito.version>5.8.0</mockito.version>
-        <archunit.version>1.4.0</archunit.version>
+        <archunit.version>1.4.1</archunit.version>
 
         <!-- Database dependencies -->
         <liquibase.version>4.33.0</liquibase.version>
