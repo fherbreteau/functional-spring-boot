@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class ItemsTest {
 
     @Test
-    void testItemsHaveTheGoodTypes() {
+    void testFilesHaveTheGoodTypes() {
         File file = File.builder()
                 .withName("file")
                 .withContentType("contentType")
@@ -33,7 +33,10 @@ class ItemsTest {
         assertThat(file).extracting(Item::getCreated, LOCAL_DATE_TIME).isNotNull().isBeforeOrEqualTo(LocalDateTime.now());
         assertThat(file).extracting(Item::getLastAccessed, LOCAL_DATE_TIME).isNotNull().isBeforeOrEqualTo(LocalDateTime.now());
         assertThat(file).extracting(Item::getLastModified, LOCAL_DATE_TIME).isNotNull().isBeforeOrEqualTo(LocalDateTime.now());
+    }
 
+    @Test
+    void testFoldersHaveTheGoodTypes() {
         Folder folder = Folder.builder()
                 .withName("folder")
                 .withOwner(User.root())
@@ -45,6 +48,34 @@ class ItemsTest {
         assertThat(folder.copyBuilder().build())
                 .isEqualTo(folder)
                 .hasSameHashCodeAs(folder);
+
+        assertThat(folder)
+                .extracting(Item::getCreated, LOCAL_DATE_TIME)
+                .isNotNull()
+                .isBeforeOrEqualTo(LocalDateTime.now());
+        assertThat(folder)
+                .extracting(Item::getLastAccessed, LOCAL_DATE_TIME)
+                .isNotNull()
+                .isBeforeOrEqualTo(LocalDateTime.now());
+        assertThat(folder)
+                .extracting(Item::getLastModified, LOCAL_DATE_TIME)
+                .isNotNull()
+                .isBeforeOrEqualTo(LocalDateTime.now());
+    }
+
+    @Test
+    void testItemsHaveTheGoodTypes() {
+        File file = File.builder()
+                .withName("file")
+                .withContentType("contentType")
+                .withOwner(User.root())
+                .withGroup(Group.root())
+                .build();
+        Folder folder = Folder.builder()
+                .withName("folder")
+                .withOwner(User.root())
+                .withGroup(Group.root())
+                .build();
 
         assertThat((Item) file).isNotEqualTo(folder);
         assertThat((Item) folder).isNotEqualTo(file);
