@@ -66,6 +66,6 @@ class EntityMapperTest {
     @Test
     void shouldReturnAnUnprocessableEntityWhenInputIsNotAnInputStream() {
         ResponseEntity<InputStreamResource> response = mapper.mapStream(new Object(), null);
-        assertThat(response).extracting(ResponseEntity::getStatusCode).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+        assertThat(response).extracting(ResponseEntity::getStatusCode).isEqualTo(HttpStatus.UNPROCESSABLE_CONTENT);
     }
 }

@@ -76,6 +76,7 @@
                                         <include>net.bytebuddy:byte-buddy-agent</include>
                                         <include>org.objenesis:objenesis</include>
                                         <include>org.apiguardian:apiguardian-api</include>
+                                        <include>org.jspecify:jspecify</include>
                                     </includes>
                                     <message>functional-domain must limit external dependencies to the maximum</message>
                                 </bannedDependencies>

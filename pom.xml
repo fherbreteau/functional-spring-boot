@@ -25,14 +25,14 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Spring Boot Dependencies versions -->
-        <spring-boot.version>3.5.9</spring-boot.version>
+        <spring-boot.version>4.0.1</spring-boot.version>
 
         <!-- Test Dependencies versions -->
         <mockito.version>5.8.0</mockito.version>
         <archunit.version>1.4.1</archunit.version>
 
         <!-- Database dependencies -->
-        <liquibase.version>4.33.0</liquibase.version>
+        <liquibase.version>5.0.1</liquibase.version>
         <postgresql.version>42.7.8</postgresql.version>
 
         <!-- Password validity Checker -->
@@ -58,7 +58,8 @@
         <jacoco.version>0.8.14</jacoco.version>
         <checkstyle-maven.version>3.6.0</checkstyle-maven.version>
         <checkstyle.version>13.0.0</checkstyle.version>
-        <surefire.version>3.5.3</surefire.version>
+        <surefire.version>3.5.4</surefire.version>
+        <failsafe.version>3.5.4</failsafe.version>
         <pitest.version>1.22.0</pitest.version>
         <pitest-junit5.version>1.2.3</pitest-junit5.version>
         <sonar.version>5.5.0.6356</sonar.version>
@@ -231,7 +232,37 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
+                            <destFile>${project.build.directory}/jacoco/jacoco-unit-tests.exec</destFile>
                             <propertyName>surefire.jacoco.args</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>before-integration-test-execution</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/jacoco/jacoco-integration-tests.exec</destFile>
+                            <propertyName>failsafe.jacoco.args</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>merge-unit-and-integration</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${project.build.directory}/jacoco/</directory>
+                                    <includes>
+                                        <include>*.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                            <destFile>${project.build.directory}/jacoco/merged.exec</destFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -244,7 +275,6 @@
                             <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
                             <formats>
                                 <format>XML</format>
-                                <format>HTML</format>
                             </formats>
                         </configuration>
                     </execution>
@@ -308,6 +338,24 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${failsafe.version}</version>
+                <configuration>
+                    <argLine>@{failsafe.jacoco.args} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+                    <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle-maven.version}</version>
                 <dependencies>
@@ -331,6 +379,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
@@ -396,6 +445,16 @@
                             <excludedClasses>
                                 <class>io.github.fherbreteau.functional.config.*</class>
                             </excludedClasses>
+                            <avoidCallsTo>
+                                <avoidCallsTo>java.util.logging</avoidCallsTo>
+                                <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+                                <avoidCallsTo>org.slf4j</avoidCallsTo>
+                                <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+                                <avoidCallsTo>org.springframework.util.Assert</avoidCallsTo>
+                            </avoidCallsTo>
+                            <outputFormats>
+                                <outputFormat>html</outputFormat>
+                            </outputFormats>
                         </configuration>
                     </plugin>
                 </plugins>

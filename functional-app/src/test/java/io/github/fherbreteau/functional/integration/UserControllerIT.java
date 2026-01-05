@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
         classes = FunctionalApplication.class)
 @ActiveProfiles("test")
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
-class UserControllerIntegrationTest {
+class UserControllerIT {
 
     @Autowired
     private WebApplicationContext context;
