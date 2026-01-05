@@ -106,7 +106,7 @@ class DomainConfigurationTest {
 
     @Test
     void testUserManagerCreation() {
-        assertThat(userService).isNotNull();
+        assertThat(userManager).isNotNull();
     }
 
     @Test
