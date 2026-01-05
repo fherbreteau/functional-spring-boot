@@ -39,5 +39,5 @@ public interface Item {
 
     String getType();
 
-    <I extends Item, B extends AbstractBuilder<I, B>> AbstractBuilder<I, B> copyBuilder();
+    <I extends Item, B extends AbstractBuilder<I, B>> B copyBuilder();
 }

@@ -19,7 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings("rawtypes")
 class UserServiceTest {
     private UserService userService;
     @Mock
@@ -27,9 +26,9 @@ class UserServiceTest {
     @Mock
     private CompositeUserCommandFactory commandFactory;
     @Mock
-    private CheckCommand checkCommand;
+    private CheckCommand<Object> checkCommand;
     @Mock
-    private Command<Output> executeCommand;
+    private Command<Output<Object>> executeCommand;
     @Mock
     private User actor;
 
