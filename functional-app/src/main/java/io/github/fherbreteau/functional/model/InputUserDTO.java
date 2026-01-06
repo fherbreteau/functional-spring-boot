@@ -3,7 +3,7 @@ package io.github.fherbreteau.functional.model;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(builder = InputUserDTO.Builder.class)
 public final class InputUserDTO {

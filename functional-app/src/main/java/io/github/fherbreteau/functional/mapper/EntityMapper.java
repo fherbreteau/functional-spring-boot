@@ -103,7 +103,7 @@ public class EntityMapper {
                     .contentType(mediaType)
                     .body(new InputStreamResource(stream));
         }
-        return ResponseEntity.unprocessableEntity().build();
+        return ResponseEntity.unprocessableContent().build();
     }
 
     private String formatAccess(boolean folder, AccessRight ownerAccess, AccessRight groupAccess,

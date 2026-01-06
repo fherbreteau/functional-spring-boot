@@ -2,7 +2,7 @@ package io.github.fherbreteau.functional.model;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(builder = GroupDTO.Builder.class)
 public final class GroupDTO {

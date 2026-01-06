@@ -2,7 +2,7 @@ package io.github.fherbreteau.functional.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(builder = ErrorDTO.Builder.class)
 public final class ErrorDTO {

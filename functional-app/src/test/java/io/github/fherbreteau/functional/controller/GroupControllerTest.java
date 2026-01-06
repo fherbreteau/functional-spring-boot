@@ -20,7 +20,6 @@ import java.util.UUID;
 
 import com.authzed.api.v1.PermissionsServiceGrpc.PermissionsServiceBlockingStub;
 import com.authzed.api.v1.SchemaServiceGrpc.SchemaServiceBlockingStub;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.fherbreteau.functional.FunctionalApplication;
 import io.github.fherbreteau.functional.domain.entities.Group;
 import io.github.fherbreteau.functional.domain.entities.Output;
@@ -41,6 +40,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import tools.jackson.databind.ObjectMapper;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.MOCK,

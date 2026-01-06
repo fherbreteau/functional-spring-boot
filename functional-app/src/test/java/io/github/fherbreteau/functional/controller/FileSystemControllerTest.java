@@ -571,4 +571,16 @@ class FileSystemControllerTest {
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
     }
+
+    @Test
+    void shouldReturnAnErrorWhenMethodInNotSupported() throws Exception {
+        given(userService.findUserByName("user")).willThrow(new UnsupportedOperationException("Not Implemented Yet"));
+
+        mvc.perform(get("/files")
+                .param("path", "/path"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.type").value("UnsupportedOperationException"))
+                .andExpect(jsonPath("$.message").value("Not Implemented Yet"));
+    }
 }
