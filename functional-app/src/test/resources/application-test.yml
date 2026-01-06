@@ -1,17 +1,21 @@
-spring.main.banner-mode: "off"
+spring:
+  main.banner-mode: "off"
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
 
 logging.level:
   root: off
   io.github.fherbreteau.functional: off
 
-spring.datasource:
-  driver-class-name: org.h2.Driver
-  url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
-  username: sa
-  password: sa
-
-spring.liquibase.change-log: classpath:/database/master.xml
-
+database.table:
+  group: '"GROUP"'
+  item: ITEM
+  item-access: ITEM_ACCESS
+  user-group: USER_GROUP
+  user: '"USER"'
 content.repository.path: /tmp
 
 grpc.client:

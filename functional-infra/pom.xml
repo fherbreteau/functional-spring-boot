@@ -32,13 +32,6 @@
             <artifactId>spring-boot-starter-liquibase</artifactId>
         </dependency>
 
-        <!-- Database dependencies
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-        -->
-
         <!-- Test dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
