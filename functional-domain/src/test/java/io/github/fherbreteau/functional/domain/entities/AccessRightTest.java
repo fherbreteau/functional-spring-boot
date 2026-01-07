@@ -3,51 +3,34 @@ package io.github.fherbreteau.functional.domain.entities;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.BOOLEAN;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class AccessRightTest {
 
-    @Test
-    void shouldBeCorrectlyConfigured() {
-        AccessRight right = AccessRight.none();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isFalse();
+    public static Stream<Arguments> shouldBeCorrectlyConfigured() {
+        return Stream.of(
+                Arguments.arguments(AccessRight.none(), false, false, false),
+                Arguments.arguments(AccessRight.readOnly(), true, false, false),
+                Arguments.arguments(AccessRight.writeOnly(), false, true, false),
+                Arguments.arguments(AccessRight.executeOnly(), false, false, true),
+                Arguments.arguments(AccessRight.readWrite(), true, true, false),
+                Arguments.arguments(AccessRight.readExecute(), true, false, true),
+                Arguments.arguments(AccessRight.writeExecute(), false, true, true),
+                Arguments.arguments(AccessRight.full(), true, true, true)
+        );
+    }
 
-        right = AccessRight.readOnly();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isFalse();
-
-        right = AccessRight.writeOnly();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isFalse();
-
-        right = AccessRight.executeOnly();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isTrue();
-
-        right = AccessRight.readWrite();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isFalse();
-
-        right = AccessRight.readExecute();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isTrue();
-
-        right = AccessRight.writeExecute();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isFalse();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isTrue();
-
-        right = AccessRight.full();
-        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isTrue();
-        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isTrue();
+    @ParameterizedTest
+    @MethodSource
+    void shouldBeCorrectlyConfigured(AccessRight right, boolean read, boolean write, boolean execute) {
+        assertThat(right).extracting(AccessRight::isRead, BOOLEAN).isEqualTo(read);
+        assertThat(right).extracting(AccessRight::isWrite, BOOLEAN).isEqualTo(write);
+        assertThat(right).extracting(AccessRight::isExecute, BOOLEAN).isEqualTo(execute);
     }
 
     @Test
