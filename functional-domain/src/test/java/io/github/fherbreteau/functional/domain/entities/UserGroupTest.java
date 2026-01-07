@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class UserGroupTest {
 
     @Test
-    void shouldBeCorrectlyConfigured() {
+    void groupShouldBeCorrectlyConfigured() {
         UUID groupId = UUID.randomUUID();
         Group group = Group.builder("group").withGroupId(groupId).build();
 
@@ -26,6 +26,14 @@ class UserGroupTest {
         assertThat(Group.builder("group").withGroupId(groupId).build()).isEqualTo(group)
                 .hasSameHashCodeAs(group);
 
+        assertThat(Group.root()).extracting(Group::isRoot, BOOLEAN).isTrue();
+        assertThat(User.root()).extracting(User::isSuperUser, BOOLEAN).isTrue();
+    }
+
+    @Test
+    void userShouldBeCorrectlyConfigured() {
+        UUID groupId = UUID.randomUUID();
+        Group group = Group.builder("group").withGroupId(groupId).build();
         UUID userId = UUID.randomUUID();
         User user = User.builder("user").withUserId(userId).withGroup(group).build();
 
@@ -36,9 +44,6 @@ class UserGroupTest {
                 .first(type(Group.class)).isEqualTo(group);
         assertThat(user).extracting(User::isSuperUser, BOOLEAN).isFalse();
         assertThat(user).asString().isEqualTo("user(" + userId + ")");
-
-        assertThat(Group.root()).extracting(Group::isRoot, BOOLEAN).isTrue();
-        assertThat(User.root()).extracting(User::isSuperUser, BOOLEAN).isTrue();
 
         assertThat(User.builder("user").withUserId(userId).withGroup(group).build())
                 .isEqualTo(user).hasSameHashCodeAs(user);
@@ -52,15 +57,20 @@ class UserGroupTest {
 
         assertThat((Object) user).isNotEqualTo(group);
         assertThat((Object) group).isNotEqualTo(user);
+    }
+
+    @Test
+    void multiGroupShouldBeCorrectlyConfigured() {
+        UUID groupId = UUID.randomUUID();
+        Group group = Group.builder("group").withGroupId(groupId).build();
 
         Group group2 = Group.builder("group2").build();
-        user = User.builder("name").withGroups(List.of(group, group2)).build();
+        User user = User.builder("name").withGroups(List.of(group, group2)).build();
         assertThat(user).extracting(User::getGroup).isEqualTo(group);
         assertThat(user).extracting(User::getGroups, LIST).hasSize(2)
                 .first(type(Group.class)).isEqualTo(group);
         assertThat(user).extracting(User::getGroups, LIST).hasSize(2)
                 .last(type(Group.class)).isEqualTo(group2);
-
     }
 
     @Test
