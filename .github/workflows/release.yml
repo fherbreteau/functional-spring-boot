@@ -9,32 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         ref: ${{github.event.release.target_commitish}}
-
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-        server-id: ossrh
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_PASSWORD
-        gpg-passphrase: MAVEN_GPG_PASSPHRASE
-
-    - name: Install gpg secret key
-      if: ${{ success() }}
-      run: |
-        # Install gpg secret key
-        cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
-
-    - name: Build with Maven
-      if: ${{ success() }}
-      env:
-        MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
-      run: mvn -B clean verify
 
     - name: Configure Git user
       if: ${{ success() }}
@@ -42,10 +19,29 @@ jobs:
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'adopt'
+        cache: maven
+        server-id: ossrh
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
+        gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+        gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+    - name: Build with Maven
+      if: ${{ success() }}
+      env:
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      run: mvn -B clean verify
+
     - name: Publish to Central Repository
       if: ${{ success() }}
       env:
+        GITHUB_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
-      run: mvn -B release:prepare release:perform -Darguments="-Dmaven.javadoc.skip=true"
+      run: mvn -B release:prepare release:perform
