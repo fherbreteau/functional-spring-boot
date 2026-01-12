@@ -54,7 +54,7 @@
 
         <!-- Tools dependencies -->
         <enforcer.version>3.5.0</enforcer.version>
-        <compiler.version>3.14.0</compiler.version>
+        <compiler.version>3.14.1</compiler.version>
         <jacoco.version>0.8.14</jacoco.version>
         <checkstyle-maven.version>3.6.0</checkstyle-maven.version>
         <checkstyle.version>13.0.0</checkstyle.version>
