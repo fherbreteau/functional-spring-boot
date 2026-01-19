@@ -33,7 +33,7 @@
 
         <!-- Database dependencies -->
         <liquibase.version>5.0.1</liquibase.version>
-        <postgresql.version>42.7.8</postgresql.version>
+        <postgresql.version>42.7.9</postgresql.version>
 
         <!-- Password validity Checker -->
         <passay.version>1.6.6</passay.version>
