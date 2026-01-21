@@ -21,5 +21,6 @@ public class ApplicationStartListener {
     public void onApplicationStarted() {
         logger.info("Load rules in the system");
         configurator.defineRules();
+        configurator.initializeDefaultUser();
     }
 }
