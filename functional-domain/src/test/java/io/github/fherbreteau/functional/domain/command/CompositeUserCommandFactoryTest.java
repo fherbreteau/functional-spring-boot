@@ -10,27 +10,8 @@ import java.util.stream.Stream;
 
 import io.github.fherbreteau.functional.domain.command.factory.ItemCommandFactory;
 import io.github.fherbreteau.functional.domain.command.factory.UserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.CreateGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.CreateUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.DeleteGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.DeleteUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.GetGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.GetUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.ListChildrenCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UnsupportedItemCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UnsupportedUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UpdateGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UpdateUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UploadCommandFactory;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckCreateGroupCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckCreateUserCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckDeleteGroupCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckDeleteUserCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckGetGroupCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckGetUserCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckUnsupportedUserCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckUpdateGroupCommand;
-import io.github.fherbreteau.functional.domain.command.impl.check.CheckUpdateUserCommand;
+import io.github.fherbreteau.functional.domain.command.factory.impl.*;
+import io.github.fherbreteau.functional.domain.command.impl.check.*;
 import io.github.fherbreteau.functional.domain.entities.UserCommandType;
 import io.github.fherbreteau.functional.domain.entities.UserInput;
 import io.github.fherbreteau.functional.driven.PasswordProtector;
@@ -64,7 +45,7 @@ class CompositeUserCommandFactoryTest {
     public static Stream<Arguments> validCommandArguments() {
         return Stream.of(
                 // ID Command
-                Arguments.of(UserCommandType.ID, UserInput.builder(null).build(), CheckGetUserCommand.class),
+                Arguments.of(UserCommandType.ID, UserInput.builder(null).withUserId(UUID.randomUUID()).build(), CheckGetUserCommand.class),
                 Arguments.of(UserCommandType.ID, UserInput.builder("user").build(), CheckGetUserCommand.class),
                 Arguments.of(UserCommandType.ID, UserInput.builder(null).build(), CheckGetUserCommand.class),
                 // USERADD Command
