@@ -33,7 +33,7 @@
 
         <!-- Database dependencies -->
         <liquibase.version>5.0.1</liquibase.version>
-        <postgresql.version>42.7.8</postgresql.version>
+        <postgresql.version>42.7.9</postgresql.version>
 
         <!-- Password validity Checker -->
         <passay.version>1.6.6</passay.version>
@@ -54,7 +54,7 @@
 
         <!-- Tools dependencies -->
         <enforcer.version>3.6.2</enforcer.version>
-        <compiler.version>3.14.0</compiler.version>
+        <compiler.version>3.14.1</compiler.version>
         <jacoco.version>0.8.14</jacoco.version>
         <checkstyle-maven.version>3.6.0</checkstyle-maven.version>
         <checkstyle.version>13.0.0</checkstyle.version>
