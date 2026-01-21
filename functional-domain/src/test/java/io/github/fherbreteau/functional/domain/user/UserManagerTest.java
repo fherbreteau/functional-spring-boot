@@ -13,6 +13,7 @@ import io.github.fherbreteau.functional.domain.entities.Output;
 import io.github.fherbreteau.functional.domain.entities.User;
 import io.github.fherbreteau.functional.driven.repository.GroupRepository;
 import io.github.fherbreteau.functional.driven.repository.UserRepository;
+import io.github.fherbreteau.functional.driven.rules.UserUpdater;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,13 +26,15 @@ class UserManagerTest {
     @Mock
     private UserRepository userRepository;
     @Mock
+    private UserUpdater userUpdater;
+    @Mock
     private GroupRepository groupRepository;
 
     private UserManager userManager;
 
     @BeforeEach
     void setup() {
-        userManager = new UserManager(userRepository, groupRepository);
+        userManager = new UserManager(userRepository, userUpdater, groupRepository);
     }
 
     @Test
