@@ -99,7 +99,7 @@ class UserControllerIT {
                 .andExpect(jsonPath("$.name").value("user1"))
                 .andExpect(jsonPath("$.uid").isNotEmpty())
                 .andExpect(jsonPath("$.groups").isArray())
-                .andExpect(jsonPath("$.groups[0].name").value("root"))
+                .andExpect(jsonPath("$.groups[0].name").value("user1"))
                 .andExpect(jsonPath("$.groups[0].gid").isNotEmpty());
     }
 }

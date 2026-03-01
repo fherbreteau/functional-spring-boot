@@ -33,6 +33,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> I createItem(I item) {
+        LOGGER.debug("Create access for item {}", item);
         UUID itemHandle = item.getHandle();
         UUID ownerId = item.getOwner().getUserId();
         UUID groupId = item.getGroup().getGroupId();
@@ -47,6 +48,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> I updateOwner(I item, User oldOwner) {
+        LOGGER.debug("Update owner access for item {} from owner {}", item, oldOwner);
         UUID itemHandle = item.getHandle();
         UUID oldOwnerId = oldOwner.getUserId();
         UUID ownerId = item.getOwner().getUserId();
@@ -60,6 +62,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> I updateGroup(I item, Group oldGroup) {
+        LOGGER.debug("Update group access for item {} from group {}", item, oldGroup);
         UUID itemHandle = item.getHandle();
         UUID oldGroupId = oldGroup.getGroupId();
         UUID groupId = item.getGroup().getGroupId();
@@ -73,6 +76,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> I updateOwnerAccess(I item, AccessRight oldOwnerAccess) {
+        LOGGER.debug("Update owner access for item {} from {}", item, oldOwnerAccess);
         UUID itemHandle = item.getHandle();
         UUID ownerId = item.getOwner().getUserId();
         List<RelationshipUpdate> updates = new ArrayList<>();
@@ -84,6 +88,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> I updateGroupAccess(I item, AccessRight oldGroupAccess) {
+        LOGGER.debug("Update group access for item {} from {}", item, oldGroupAccess);
         UUID itemHandle = item.getHandle();
         UUID groupId = item.getGroup().getGroupId();
         List<RelationshipUpdate> updates = new ArrayList<>();
@@ -95,6 +100,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> I updateOtherAccess(I item, AccessRight oldOtherAccess) {
+        LOGGER.debug("Update other access for item {} from {}", item, oldOtherAccess);
         UUID itemHandle = item.getHandle();
         List<RelationshipUpdate> updates = new ArrayList<>();
         updateAccess(OTHER, itemHandle, oldOtherAccess, item.getOtherAccess(), null, updates);
@@ -105,6 +111,7 @@ public class AccessUpdaterImpl implements AccessUpdater {
 
     @Override
     public <I extends Item> void deleteItem(I item) {
+        LOGGER.debug("Delete access for item {}", item);
         UUID itemHandle = item.getHandle();
         UUID ownerId = item.getOwner().getUserId();
         UUID groupId = item.getGroup().getGroupId();

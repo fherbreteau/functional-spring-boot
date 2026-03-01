@@ -26,7 +26,7 @@ public class RuleConfiguratorImpl implements RuleConfigurator {
 
     @Override
     public void initializeDefaultUser() {
-        logger.debug("Define checking rules");
+        logger.debug("Define default user");
         userManager.createRootUser(User.root());
     }
 }

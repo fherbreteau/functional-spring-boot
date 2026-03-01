@@ -24,6 +24,7 @@ public class AccessCheckerImpl implements AccessChecker {
 
     @Override
     public <T extends Item> boolean canRead(T item, User actor) {
+        LOGGER.debug("Checking canRead({}, {})", item, actor);
         CheckPermissionRequest request = CheckPermissionRequest.newBuilder()
                 .setPermission(READ)
                 .setResource(ObjectReference.newBuilder()
@@ -45,6 +46,7 @@ public class AccessCheckerImpl implements AccessChecker {
 
     @Override
     public <T extends Item> boolean canWrite(T item, User actor) {
+        LOGGER.debug("Checking canWrite({}, {})", item, actor);
         CheckPermissionRequest request = CheckPermissionRequest.newBuilder()
                 .setPermission(WRITE)
                 .setResource(ObjectReference.newBuilder()
@@ -66,6 +68,7 @@ public class AccessCheckerImpl implements AccessChecker {
 
     @Override
     public <T extends Item> boolean canExecute(T item, User actor) {
+        LOGGER.debug("Checking canExecute({}, {})", item, actor);
         CheckPermissionRequest request = CheckPermissionRequest.newBuilder()
                 .setPermission(EXECUTE)
                 .setResource(ObjectReference.newBuilder()
@@ -87,6 +90,7 @@ public class AccessCheckerImpl implements AccessChecker {
 
     @Override
     public <T extends Item> boolean canChangeMode(T item, User actor) {
+        LOGGER.debug("Checking canChangeMode({}, {})", item, actor);
         CheckPermissionRequest request = CheckPermissionRequest.newBuilder()
                 .setPermission(CHANGE_MODE)
                 .setResource(ObjectReference.newBuilder()
@@ -108,6 +112,7 @@ public class AccessCheckerImpl implements AccessChecker {
 
     @Override
     public <T extends Item> boolean canChangeOwner(T item, User actor) {
+        LOGGER.debug("Checking canChangeOwner({}, {})", item, actor);
         CheckPermissionRequest request = CheckPermissionRequest.newBuilder()
                 .setPermission(CHANGE_OWNER)
                 .setResource(ObjectReference.newBuilder()
@@ -129,6 +134,7 @@ public class AccessCheckerImpl implements AccessChecker {
 
     @Override
     public <T extends Item> boolean canChangeGroup(T item, User actor) {
+        LOGGER.debug("Checking canChangeGroup({}, {})", item, actor);
         CheckPermissionRequest request = CheckPermissionRequest.newBuilder()
                 .setPermission(CHANGE_GROUP)
                 .setResource(ObjectReference.newBuilder()

@@ -35,21 +35,19 @@ class AccessRightTest {
 
     @Test
     void testThatRemovedElementChangeAccesses() {
-        AccessRight right = AccessRight.full();
-
-        AccessRight changed = right.removeExecute();
+        AccessRight changed = AccessRight.full().removeExecute();
         assertThat(changed).extracting(AccessRight::isRead, BOOLEAN).isTrue();
         assertThat(changed).extracting(AccessRight::isWrite, BOOLEAN).isTrue();
         assertThat(changed).extracting(AccessRight::isExecute, BOOLEAN).isFalse();
 
-        changed = right.removeWrite();
-        assertThat(changed).extracting(AccessRight::isRead, BOOLEAN).isTrue();
+        changed = AccessRight.writeExecute().removeWrite();
+        assertThat(changed).extracting(AccessRight::isRead, BOOLEAN).isFalse();
         assertThat(changed).extracting(AccessRight::isWrite, BOOLEAN).isFalse();
         assertThat(changed).extracting(AccessRight::isExecute, BOOLEAN).isTrue();
 
-        changed = right.removeRead();
+        changed = AccessRight.readExecute().removeRead();
         assertThat(changed).extracting(AccessRight::isRead, BOOLEAN).isFalse();
-        assertThat(changed).extracting(AccessRight::isWrite, BOOLEAN).isTrue();
+        assertThat(changed).extracting(AccessRight::isWrite, BOOLEAN).isFalse();
         assertThat(changed).extracting(AccessRight::isExecute, BOOLEAN).isTrue();
     }
 
