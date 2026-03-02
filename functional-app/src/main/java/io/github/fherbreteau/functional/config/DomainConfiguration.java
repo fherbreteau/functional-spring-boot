@@ -55,8 +55,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public UserManager userManager(UserRepository userRepository, GroupRepository groupRepository) {
-        return new UserManager(userRepository, groupRepository);
+    public UserManager userManager(UserRepository userRepository, UserUpdater userUpdater, GroupRepository groupRepository) {
+        return new UserManager(userRepository, userUpdater, groupRepository);
     }
 
     @Bean
@@ -103,7 +103,7 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public RuleConfigurator ruleConfigurator(RuleProvider ruleProvider) {
-        return new RuleConfiguratorImpl(ruleProvider);
+    public RuleConfigurator ruleConfigurator(RuleProvider ruleProvider, UserManager userManager) {
+        return new RuleConfiguratorImpl(ruleProvider, userManager);
     }
 }

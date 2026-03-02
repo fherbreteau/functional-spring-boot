@@ -9,6 +9,7 @@ import io.github.fherbreteau.functional.domain.entities.Output;
 import io.github.fherbreteau.functional.domain.entities.User;
 import io.github.fherbreteau.functional.driven.repository.GroupRepository;
 import io.github.fherbreteau.functional.driven.repository.UserRepository;
+import io.github.fherbreteau.functional.driven.rules.UserUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +17,12 @@ public class UserManager {
     private final Logger logger = LoggerFactory.getLogger(getClass().getSimpleName());
 
     private final UserRepository userRepository;
+    private final UserUpdater userUpdater;
     private final GroupRepository groupRepository;
 
-    public UserManager(UserRepository userRepository, GroupRepository groupRepository) {
+    public UserManager(UserRepository userRepository, UserUpdater userUpdater, GroupRepository groupRepository) {
         this.userRepository = userRepository;
+        this.userUpdater = userUpdater;
         this.groupRepository = groupRepository;
     }
 
@@ -49,5 +52,11 @@ public class UserManager {
             return Output.failure(format("Password for user %s not found", user.getName()));
         }
         return Output.failure(format("User %s not found", user.getName()));
+    }
+
+    public void createRootUser(User user) {
+        logger.debug("Initializing user {}", user);
+        userUpdater.createGroup(user.getGroup());
+        userUpdater.createUser(user);
     }
 }
