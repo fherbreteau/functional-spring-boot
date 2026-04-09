@@ -26,4 +26,13 @@ class ApplicationStartListenerTest {
         // Assert
         verify(configurator).defineRules();
     }
+
+    @Test
+    void shouldInitializeDefaultUserOnApplicationStart() {
+        // Arrange
+        // Act
+        listener.onApplicationStarted();
+        // Assert
+        verify(configurator).initializeDefaultUser();
+    }
 }

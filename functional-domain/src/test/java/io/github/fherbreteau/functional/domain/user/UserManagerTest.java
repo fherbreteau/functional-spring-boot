@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.BOOLEAN;
 import static org.assertj.core.api.InstanceOfAssertFactories.list;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import io.github.fherbreteau.functional.domain.entities.Output;
 import io.github.fherbreteau.functional.domain.entities.User;
 import io.github.fherbreteau.functional.driven.repository.GroupRepository;
 import io.github.fherbreteau.functional.driven.repository.UserRepository;
+import io.github.fherbreteau.functional.driven.rules.UserUpdater;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,13 +27,15 @@ class UserManagerTest {
     @Mock
     private UserRepository userRepository;
     @Mock
+    private UserUpdater userUpdater;
+    @Mock
     private GroupRepository groupRepository;
 
     private UserManager userManager;
 
     @BeforeEach
     void setup() {
-        userManager = new UserManager(userRepository, groupRepository);
+        userManager = new UserManager(userRepository, userUpdater, groupRepository);
     }
 
     @Test
@@ -170,5 +174,16 @@ class UserManagerTest {
                 .extracting(Output::getFailure)
                 .extracting(Failure::getMessage)
                 .isEqualTo("Password for user user not found");
+    }
+
+    @Test
+    void shouldDelegateToUserUpdaterWhenCreatingUser() {
+        // GIVEN
+        User root = User.builder("name").build();
+        // WHEN
+        userManager.createRootUser(root);
+        // THEN
+        verify(userUpdater).createGroup(root.getGroup());
+        verify(userUpdater).createUser(root);
     }
 }

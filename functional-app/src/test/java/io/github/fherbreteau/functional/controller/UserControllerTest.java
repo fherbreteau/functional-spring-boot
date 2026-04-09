@@ -227,7 +227,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         InputUserDTO dto = InputUserDTO.builder().withName("user1").build();
         mvc.perform(post("/users").with(csrf())
@@ -236,7 +236,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         mvc.perform(patch("/users/user1").with(csrf())
                         .content(mapper.writeValueAsBytes(dto))
@@ -244,7 +244,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         mvc.perform(put("/users/user1/password").with(csrf())
                         .content("Pa$sw0rd")
@@ -252,12 +252,12 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         mvc.perform(delete("/users/user1").with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
     }
 }

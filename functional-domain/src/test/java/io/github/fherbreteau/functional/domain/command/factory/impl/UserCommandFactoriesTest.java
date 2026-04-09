@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.UUID;
@@ -210,6 +211,23 @@ class UserCommandFactoriesTest {
                 .isNotNull()
                 .extracting(User::getName)
                 .isEqualTo("user");
+    }
+
+    @Test
+    void shouldGetCurrentUser() {
+        UserCommandFactory<User> factory = new GetUserCommandFactory();
+        UserInput input = UserInput.builder(null).build();
+        when(actor.getName()).thenReturn("actor");
+
+        CheckCommand<User> checkCommand = factory.createCommand(userRepository, groupRepository, userChecker,
+                userUpdater, passwordProtector, UserCommandType.ID, input);
+        Command<Output<User>> executeCommand = checkCommand.execute(actor);
+        Output<User> output = executeCommand.execute(actor);
+
+        assertThat(output).extracting(Output::getValue, type(User.class))
+                .isNotNull()
+                .extracting(User::getName)
+                .isEqualTo("actor");
     }
 
     @Test
