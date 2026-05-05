@@ -25,6 +25,7 @@ public class UserCheckerImpl implements UserChecker {
 
     @Override
     public boolean canCreateUser(String name, User actor) {
+        LOGGER.debug("Checking canCreateUser({}, {})", name, actor);
         CheckPermissionRequest request = createRequest(CREATE, actor.getUserId());
         try {
             CheckPermissionResponse response = permissionsService.checkPermission(request);
@@ -37,6 +38,7 @@ public class UserCheckerImpl implements UserChecker {
 
     @Override
     public boolean canUpdateUser(String name, User actor) {
+        LOGGER.debug("Checking canUpdateUser({}, {})", name, actor);
         CheckPermissionRequest request = createRequest(UPDATE, actor.getUserId());
         try {
             CheckPermissionResponse response = permissionsService.checkPermission(request);
@@ -49,6 +51,7 @@ public class UserCheckerImpl implements UserChecker {
 
     @Override
     public boolean canDeleteUser(String name, User actor) {
+        LOGGER.debug("Checking canDeleteUser({}, {})", name, actor);
         CheckPermissionRequest request = createRequest(DELETE, actor.getUserId());
         try {
             CheckPermissionResponse response = permissionsService.checkPermission(request);
@@ -61,6 +64,7 @@ public class UserCheckerImpl implements UserChecker {
 
     @Override
     public boolean canCreateGroup(String name, User actor) {
+        LOGGER.debug("Checking canCreateGroup({}, {})", name, actor);
         CheckPermissionRequest request = createRequest(CREATE, actor.getUserId());
         try {
             CheckPermissionResponse response = permissionsService.checkPermission(request);
@@ -73,6 +77,7 @@ public class UserCheckerImpl implements UserChecker {
 
     @Override
     public boolean canUpdateGroup(String name, User actor) {
+        LOGGER.debug("Checking canUpdateGroup({}, {})", name, actor);
         CheckPermissionRequest request = createRequest(UPDATE, actor.getUserId());
         try {
             CheckPermissionResponse response = permissionsService.checkPermission(request);
@@ -85,6 +90,7 @@ public class UserCheckerImpl implements UserChecker {
 
     @Override
     public boolean canDeleteGroup(String name, User actor) {
+        LOGGER.debug("Checking canDeleteGroup({}, {})", name, actor);
         CheckPermissionRequest request = createRequest(DELETE, actor.getUserId());
         try {
             CheckPermissionResponse response = permissionsService.checkPermission(request);

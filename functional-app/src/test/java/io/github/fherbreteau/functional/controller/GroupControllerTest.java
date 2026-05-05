@@ -186,7 +186,7 @@ class GroupControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         GroupDTO dto = GroupDTO.builder()
                 .withName("group")
@@ -197,7 +197,7 @@ class GroupControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         mvc.perform(patch("/groups/group").with(csrf())
                         .content(mapper.writeValueAsBytes(dto))
@@ -205,12 +205,12 @@ class GroupControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
 
         mvc.perform(delete("/groups/group").with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"));
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: []"));
     }
 }

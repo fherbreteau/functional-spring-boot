@@ -1,7 +1,6 @@
 package io.github.fherbreteau.functional.infra.impl;
 
-import static io.github.fherbreteau.functional.domain.entities.AccessRight.full;
-import static io.github.fherbreteau.functional.domain.entities.AccessRight.none;
+import static io.github.fherbreteau.functional.domain.entities.AccessRight.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.type;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -75,7 +74,7 @@ class JdbcItemRepositoryTest {
     }
 
     @Test
-    void shouldCreateItemInDatabase() {
+    void shouldCreateFileInDatabase() {
         File file = File.builder()
                 .withName("file")
                 .withOwner(User.root())
@@ -98,6 +97,31 @@ class JdbcItemRepositoryTest {
                 .usingRecursiveComparison()
                 .ignoringFields("created", "lastModified", "lastAccessed")
                 .isEqualTo(createdFile);
+    }
+
+    @Test
+    void shouldCreateFolderInDatabase() {
+        Folder folder = Folder.builder()
+                .withName("folder1")
+                .withOwner(User.root())
+                .withParent(Folder.getRoot())
+                .withOwnerAccess(full())
+                .withGroupAccess(full())
+                .withOtherAccess(full())
+                .build();
+        Folder createdFolder = itemRepository.create(folder);
+        assertThat(createdFolder)
+                .extracting(Folder::getHandle)
+                .isNotNull();
+        assertThat(itemRepository.exists(Folder.getRoot(), "folder1"))
+                .isTrue();
+        Optional<Item> item = itemRepository.findByNameAndParentAndUser("folder1", Folder.getRoot(), User.root());
+        assertThat(item).isPresent()
+                .get()
+                .isInstanceOf(Folder.class)
+                .usingRecursiveComparison()
+                .ignoringFields("created", "lastModified", "lastAccessed")
+                .isEqualTo(createdFolder);
     }
 
     @Test

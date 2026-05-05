@@ -420,6 +420,9 @@
                             <excludedClasses>
                                 <class>io.github.fherbreteau.functional.config.*</class>
                             </excludedClasses>
+                            <excludedTestClasses>
+                                <param>io.github.fherbreteau.functional.integration.*</param>
+                            </excludedTestClasses>
                             <avoidCallsTo>
                                 <avoidCallsTo>java.util.logging</avoidCallsTo>
                                 <avoidCallsTo>org.apache.log4j</avoidCallsTo>

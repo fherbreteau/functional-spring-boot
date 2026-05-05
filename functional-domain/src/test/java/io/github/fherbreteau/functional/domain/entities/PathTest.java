@@ -2,18 +2,24 @@ package io.github.fherbreteau.functional.domain.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 
 class PathTest {
 
     @Test
     void shouldBeAValidPath() {
-        Path path = Path.success(Folder.builder()
+        UUID folderId = UUID.randomUUID();
+        Folder folder = Folder.builder()
                 .withName("folder")
                 .withOwner(User.root())
                 .withGroup(Group.root())
-                .build());
+                .withHandle(folderId)
+                .build();
+        Path path = Path.success(folder);
         assertThat(path.getName()).isEqualTo("folder");
+        assertThat(path.getHandle()).isEqualTo(folderId);
 
         File file = File.builder()
                 .withName("")

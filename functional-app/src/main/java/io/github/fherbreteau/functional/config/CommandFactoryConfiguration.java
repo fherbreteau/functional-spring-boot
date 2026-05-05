@@ -1,21 +1,6 @@
 package io.github.fherbreteau.functional.config;
 
-import io.github.fherbreteau.functional.domain.command.factory.impl.ChangeGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.ChangeModeCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.ChangeOwnerCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.CreateGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.CreateItemCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.CreateUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.DeleteGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.DeleteItemCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.DeleteUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.DownloadCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.ListChildrenCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UnsupportedItemCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UnsupportedUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UpdateGroupCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UpdateUserCommandFactory;
-import io.github.fherbreteau.functional.domain.command.factory.impl.UploadCommandFactory;
+import io.github.fherbreteau.functional.domain.command.factory.impl.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,6 +23,11 @@ public class CommandFactoryConfiguration {
     }
 
     @Bean
+    public CopyItemCommandFactory copyItemCommandFactory() {
+        return new CopyItemCommandFactory();
+    }
+
+    @Bean
     public CreateItemCommandFactory createItemCommandFactory() {
         return new CreateItemCommandFactory();
     }
@@ -55,6 +45,11 @@ public class CommandFactoryConfiguration {
     @Bean
     public ListChildrenCommandFactory listChildrenCommandFactory() {
         return new ListChildrenCommandFactory();
+    }
+
+    @Bean
+    public MoveItemCommandFactory moveCommandFactory() {
+        return new MoveItemCommandFactory();
     }
 
     @Bean
@@ -100,5 +95,15 @@ public class CommandFactoryConfiguration {
     @Bean
     public UpdateUserCommandFactory userModifyCommandFactory() {
         return new UpdateUserCommandFactory();
+    }
+
+    @Bean
+    public GetUserCommandFactory identityCommandFactory() {
+        return new GetUserCommandFactory();
+    }
+
+    @Bean
+    public GetGroupCommandFactory groupCommandFactory() {
+        return new GetGroupCommandFactory();
     }
 }

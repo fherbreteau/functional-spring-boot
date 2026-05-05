@@ -15,11 +15,14 @@ import io.github.fherbreteau.functional.mapper.EntityMapper;
 import io.github.fherbreteau.functional.model.GroupDTO;
 import io.github.fherbreteau.functional.model.InputUserDTO;
 import io.github.fherbreteau.functional.model.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserManagementService {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final UserService userService;
     private final EntityMapper entityMapper;
 
@@ -29,6 +32,7 @@ public class UserManagementService {
     }
 
     public UserDTO getUser(String name, UUID userId, String username) {
+        log.debug("Getting user info by user {} ", username);
         Output<User> output = userService.findUserByName(username);
         if (output.isFailure()) {
             throw new UserException(output.getFailure());
@@ -45,6 +49,7 @@ public class UserManagementService {
     }
 
     public UserDTO createUser(InputUserDTO userDTO, String username) {
+        log.debug("Creating user by user {} ", username);
         Output<User> output = userService.findUserByName(username);
         if (output.isFailure()) {
             throw new UserException(output.getFailure());
@@ -64,6 +69,7 @@ public class UserManagementService {
     }
 
     public UserDTO modifyUser(String name, InputUserDTO userDTO, boolean append, String username) {
+        log.debug("Updating user by user {} ", username);
         Output<User> output = userService.findUserByName(username);
         if (output.isFailure()) {
             throw new UserException(output.getFailure());
@@ -85,6 +91,7 @@ public class UserManagementService {
     }
 
     public UserDTO updatePassword(String name, String password, String username) {
+        log.debug("Updating user password info by user {} ", username);
         Output<User> output = userService.findUserByName(username);
         if (output.isFailure()) {
             throw new UserException(output.getFailure());
@@ -101,6 +108,7 @@ public class UserManagementService {
     }
 
     public void deleteUser(String name, String username) {
+        log.debug("Deleting user by user {} ", username);
         Output<User> output = userService.findUserByName(username);
         if (output.isFailure()) {
             throw new UserException(output.getFailure());

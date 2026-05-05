@@ -12,7 +12,7 @@ public class CommandException extends RuntimeException {
     private final String[] reasons;
 
     public CommandException(Failure failure) {
-        super(failure.getMessage());
+        super(failure.getMessage() + " with reasons: " + failure.getReasons());
         reasons = failure.getReasons().toArray(String[]::new);
     }
 

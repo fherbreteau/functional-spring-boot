@@ -479,7 +479,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -490,7 +490,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -501,7 +501,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -512,7 +512,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -523,7 +523,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -534,7 +534,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -544,7 +544,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -556,7 +556,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
@@ -566,7 +566,7 @@ class FileSystemControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.type").value("CommandException"))
-                .andExpect(jsonPath("$.message").value("Command Failed"))
+                .andExpect(jsonPath("$.message").value("Command Failed with reasons: [Error]"))
                 .andExpect(jsonPath("$.reasons").isArray())
                 .andExpect(jsonPath("$.reasons", hasSize(1)))
                 .andExpect(jsonPath("$.reasons[0]").value("Error"));
