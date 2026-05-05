@@ -114,6 +114,12 @@ class JdbcUserRepositoryTest {
                 .singleElement()
                 .extracting(Group::getName, Group::getGroupId)
                 .containsExactly("to_update_by_id", groupId);
+
+        User userWithNewGroup = userToUpdate.copy().addGroups(List.of(Group.builder("newGroup").build())).build();
+        assertThat(userRepository.update(userWithNewGroup)).isEqualTo(userWithNewGroup);
+        assertThat(userRepository.findById(newUUID))
+                .extracting(User::getUserId, User::getName)
+                .containsExactly(newUUID, "User2");
     }
 
     @Test
