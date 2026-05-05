@@ -5,7 +5,7 @@ import java.util.List;
 import io.github.fherbreteau.functional.driven.PasswordProtector;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
-import org.passay.RuleResult;
+import org.passay.ValidationResult;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +21,17 @@ public class PasswordProtectorImpl implements PasswordProtector {
     }
 
     @Override
-    public String protect(String rawPassword) {
-        return passwordEncoder.encode(rawPassword);
+    public String protect(String password) {
+        return passwordEncoder.encode(password);
     }
 
     @Override
-    public List<String> validate(String rawPassword) {
-        RuleResult result = passwordValidator.validate(new PasswordData(rawPassword));
+    public List<String> validate(String username, String password) {
+        PasswordData passwordData = new PasswordData(username, password);
+        ValidationResult result = passwordValidator.validate(passwordData);
         if (result.isValid()) {
             return List.of();
         }
-        return passwordValidator.getMessages(result);
+        return result.getMessages();
     }
 }

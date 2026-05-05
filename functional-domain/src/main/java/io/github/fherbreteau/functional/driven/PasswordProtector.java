@@ -4,7 +4,18 @@ import java.util.List;
 
 public interface PasswordProtector {
 
-    String protect(String rawPassword);
+    /**
+     * Protect the password of the user
+     * @param password the user raw password
+     * @return a protected version of the password
+     */
+    String protect(String password);
 
-    List<String> validate(String rawPassword);
+    /**
+     * Validate the password of a specific user
+     * @param username the user name
+     * @param password the user password
+     * @return the list of Validation errors in the user password
+     */
+    List<String> validate(String username, String password);
 }

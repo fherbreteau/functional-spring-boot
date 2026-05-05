@@ -11,10 +11,6 @@
 
     <artifactId>functional-app</artifactId>
 
-    <properties>
-        <sonar.coverage.exclusions>**/*Application.java,**/*Configuration.java,**/*Properties.java</sonar.coverage.exclusions>
-    </properties>
-
     <dependencies>
         <!-- Project dependencies -->
         <dependency>
@@ -51,7 +47,7 @@
         <!-- Other dependencies -->
         <dependency>
             <groupId>org.passay</groupId>
-            <artifactId>passay</artifactId>
+            <artifactId>passay-spring</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -60,24 +56,6 @@
         <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-client-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>

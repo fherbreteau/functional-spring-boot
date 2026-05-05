@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.github.fherbreteau.functional.driven.PasswordProtector;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -18,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
-import org.passay.RuleResult;
+import org.passay.ValidationResult;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,32 +48,46 @@ class PasswordProtectorTest {
         then(passwordEncoder).should().encode("password");
     }
 
-    @Test
-    void passwordProtectorShouldDelegateToPasswordValidatorWhenValidating() {
-        // GIVEN
-        given(passwordValidator.validate(any())).willReturn(new RuleResult());
-        // WHEN
-        assertThat(passwordProtector.validate("password")).isEmpty();
-        // THEN
-        then(passwordValidator).should().validate(dataCaptor.capture());
-        assertThat(dataCaptor.getValue())
-                .extracting(PasswordData::getPassword)
-                .isEqualTo("password");
-    }
+    @Nested
+    class PasswordValidationProtector {
+        @Mock
+        private ValidationResult result;
 
-    @Test
-    void passwordProtectorShouldReturnValidationErrorsWhenValidationFails() {
-        // GIVEN
-        given(passwordValidator.validate(any())).willReturn(new RuleResult(false));
-        given(passwordValidator.getMessages(any())).willReturn(List.of("error1", "error2"));
-        // WHEN
-        assertThat(passwordProtector.validate("password"))
-                .hasSize(2)
-                .containsExactly("error1", "error2");
-        // THEN
-        then(passwordValidator).should().validate(dataCaptor.capture());
-        assertThat(dataCaptor.getValue())
-                .extracting(PasswordData::getPassword)
-                .isEqualTo("password");
+        @Test
+        void passwordProtectorShouldDelegateToPasswordValidatorWhenValidating() {
+            // GIVEN
+            given(result.isValid()).willReturn(true);
+            given(passwordValidator.validate(any())).willReturn(result);
+            // WHEN
+            assertThat(passwordProtector.validate("username", "password")).isEmpty();
+            // THEN
+            then(passwordValidator).should().validate(dataCaptor.capture());
+            assertThat(dataCaptor.getValue())
+                    .extracting(PasswordData::getPassword)
+                    .hasToString("password");
+            assertThat(dataCaptor.getValue())
+                    .extracting(PasswordData::getUsername)
+                    .hasToString("username");
+        }
+
+        @Test
+        void passwordProtectorShouldReturnValidationErrorsWhenValidationFails() {
+            // GIVEN
+            given(result.isValid()).willReturn(false);
+            given(result.getMessages()).willReturn(List.of("error1", "error2"));
+            given(passwordValidator.validate(any())).willReturn(result);
+            // WHEN
+            assertThat(passwordProtector.validate("username", "password"))
+                    .hasSize(2)
+                    .containsExactly("error1", "error2");
+            // THEN
+            then(passwordValidator).should().validate(dataCaptor.capture());
+            assertThat(dataCaptor.getValue())
+                    .extracting(PasswordData::getPassword)
+                    .hasToString("password");
+            assertThat(dataCaptor.getValue())
+                    .extracting(PasswordData::getUsername)
+                    .hasToString("username");
+        }
     }
 }
