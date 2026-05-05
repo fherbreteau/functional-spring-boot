@@ -11,10 +11,6 @@
 
     <artifactId>functional-infra</artifactId>
 
-    <properties>
-        <sonar.coverage.exclusions>**/*Configuration.java</sonar.coverage.exclusions>
-    </properties>
-
     <dependencies>
         <!-- Project dependencies-->
         <dependency>

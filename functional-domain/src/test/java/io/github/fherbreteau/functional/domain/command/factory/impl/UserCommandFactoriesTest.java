@@ -68,7 +68,7 @@ class UserCommandFactoriesTest {
         given(userRepository.create(any())).willAnswer(invocation -> invocation.getArgument(0));
         given(userRepository.updatePassword(any(), eq("password")))
                 .willAnswer(invocation -> invocation.getArgument(0));
-        given(passwordProtector.validate("password")).willReturn(List.of());
+        given(passwordProtector.validate("user", "password")).willReturn(List.of());
         given(passwordProtector.protect("password")).willAnswer(invocation -> invocation.getArgument(0));
         given(userUpdater.createUser(any())).willAnswer(invocation -> invocation.getArgument(0));
 
@@ -117,7 +117,7 @@ class UserCommandFactoriesTest {
                 .willAnswer(invocation -> invocation.getArgument(0));
         given(groupRepository.exists(groupId)).willReturn(true);
         given(groupRepository.findById(groupId)).willReturn(group);
-        given(passwordProtector.validate("password")).willReturn(List.of());
+        given(passwordProtector.validate("user", "password")).willReturn(List.of());
         given(passwordProtector.protect("password")).willAnswer(invocation -> invocation.getArgument(0));
         given(userUpdater.updateUser(any(), any())).willAnswer(invocation -> invocation.getArgument(1));
 

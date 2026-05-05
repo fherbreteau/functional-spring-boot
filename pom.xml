@@ -25,29 +25,29 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Spring Boot Dependencies versions -->
-        <spring-boot.version>4.0.5</spring-boot.version>
+        <spring-boot.version>4.0.6</spring-boot.version>
 
         <!-- Test Dependencies versions -->
         <mockito.version>5.8.0</mockito.version>
-        <archunit.version>1.4.1</archunit.version>
+        <archunit.version>1.4.2</archunit.version>
 
         <!-- Database dependencies -->
         <liquibase.version>5.0.2</liquibase.version>
-        <postgresql.version>42.7.10</postgresql.version>
+        <postgresql.version>42.7.11</postgresql.version>
 
         <!-- Password validity Checker -->
-        <passay.version>1.6.6</passay.version>
+        <passay.version>2.0.0</passay.version>
 
         <!-- AuthZed dependencies -->
         <authzed.version>1.5.4</authzed.version>
-        <grpc.version>1.80.0</grpc.version>
+        <grpc.version>1.81.0</grpc.version>
         <grpc-spring-boot.version>3.1.0.RELEASE</grpc-spring-boot.version>
 
         <!-- Tests dependencies -->
         <jimfs.version>1.3.1</jimfs.version>
-        <spring-boot-testcontainers.version>3.1.20</spring-boot-testcontainers.version>
+        <spring-boot-testcontainers.version>4.0.0</spring-boot-testcontainers.version>
         <spring-cloud.version>2025.1.1</spring-cloud.version>
-        <testcontainers.version>2.0.3</testcontainers.version>
+        <testcontainers.version>2.0.5</testcontainers.version>
 
         <!-- Other dependencies -->
         <hibernate-validator.version>9.1.0.Final</hibernate-validator.version>
@@ -57,12 +57,12 @@
         <compiler.version>3.15.0</compiler.version>
         <jacoco.version>0.8.14</jacoco.version>
         <checkstyle-maven.version>3.6.0</checkstyle-maven.version>
-        <checkstyle.version>13.3.0</checkstyle.version>
+        <checkstyle.version>13.4.2</checkstyle.version>
         <surefire.version>3.5.5</surefire.version>
         <failsafe.version>3.5.5</failsafe.version>
-        <pitest.version>1.23.0</pitest.version>
+        <pitest.version>1.23.1</pitest.version>
         <pitest-junit5.version>1.2.3</pitest-junit5.version>
-        <sonar.version>5.5.0.6356</sonar.version>
+        <sonar.version>5.6.0.6792</sonar.version>
         <git-commit-id.version>10.0.0</git-commit-id.version>
         <dependency.version>3.10.0</dependency.version>
 
@@ -136,7 +136,7 @@
             <!-- Other dependencies -->
             <dependency>
                 <groupId>org.passay</groupId>
-                <artifactId>passay</artifactId>
+                <artifactId>passay-spring</artifactId>
                 <version>${passay.version}</version>
             </dependency>
             <dependency>
@@ -197,6 +197,11 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${enforcer.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${compiler.version}</version>
                 </plugin>
@@ -240,9 +245,37 @@
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>${sonar.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${dependencies-version.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>21</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -332,6 +365,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!--suppress UnresolvedMavenProperty -->
                     <argLine>@{surefire.jacoco.args} -javaagent:${org.mockito:mockito-core:jar}</argLine>
                 </configuration>
             </plugin>

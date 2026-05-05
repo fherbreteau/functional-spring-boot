@@ -61,7 +61,7 @@ public class CheckCreateUserCommand extends AbstractCheckUserCommand<User, Creat
             reasons.add(String.format("group %s already exists", name));
         }
         if (nonNull(password)) {
-            reasons.addAll(passwordProtector.validate(password));
+            reasons.addAll(passwordProtector.validate(name, password));
         }
         return reasons;
     }

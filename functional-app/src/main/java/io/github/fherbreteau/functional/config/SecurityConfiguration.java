@@ -1,15 +1,18 @@
 package io.github.fherbreteau.functional.config;
 
+import java.util.List;
+
 import io.github.fherbreteau.functional.driving.UserService;
 import io.github.fherbreteau.functional.service.FunctionalUserDetailsService;
-import org.passay.CharacterRule;
-import org.passay.EnglishCharacterData;
-import org.passay.EnglishSequenceData;
-import org.passay.IllegalSequenceRule;
-import org.passay.LengthRule;
+import org.passay.DefaultPasswordValidator;
 import org.passay.PasswordValidator;
-import org.passay.WhitespaceRule;
+import org.passay.data.EnglishCharacterData;
+import org.passay.data.EnglishSequenceData;
+import org.passay.resolver.MessageResolver;
+import org.passay.resolver.SpringMessageResolver;
+import org.passay.rule.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -38,8 +41,13 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public PasswordValidator passwordValidator() {
-        return new PasswordValidator(
+    public MessageResolver messageResolver(MessageSource messageSource) {
+        return new SpringMessageResolver(messageSource);
+    }
+
+    @Bean
+    public PasswordValidator passwordValidator(MessageResolver messageResolver) {
+        List<Rule> rules = List.of(
                 // length between 8 and 16 characters
                 new LengthRule(8, 16),
                 // at least one upper-case character
@@ -58,6 +66,7 @@ public class SecurityConfiguration {
                 new IllegalSequenceRule(EnglishSequenceData.USQwerty, 5, false),
                 // no whitespace
                 new WhitespaceRule());
+        return new DefaultPasswordValidator(messageResolver, rules);
     }
 
     @Bean

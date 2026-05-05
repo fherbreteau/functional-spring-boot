@@ -65,7 +65,7 @@ public class CheckUpdateUserCommand extends AbstractCheckUserCommand<User, Updat
             reasons.add(String.format("one of %s is missing", String.join(", ", groups)));
         }
         if (nonNull(password)) {
-            reasons.addAll(passwordProtector.validate(password));
+            reasons.addAll(passwordProtector.validate(name, password));
         }
         return reasons;
     }
